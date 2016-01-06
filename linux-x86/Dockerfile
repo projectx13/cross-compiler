@@ -1,5 +1,4 @@
-FROM steeve/cross-compiler:base
-MAINTAINER Steeve Morin "steeve.morin@gmail.com"
+FROM cross-compiler:base
 
 RUN apt-get update && apt-get -y install \
                         gcc-multilib \
@@ -9,6 +8,7 @@ ENV CROSS_TRIPLE i686-linux-gnu
 ENV CROSS_ROOT /usr/i686-linux-gnu
 ENV PATH ${PATH}:${CROSS_ROOT}/bin
 ENV LD_LIBRARY_PATH ${CROSS_ROOT}/lib:${LD_LIBRARY_PATH}
+ENV PKG_CONFIG_PATH ${CROSS_ROOT}/lib/pkgconfig:${PKG_CONFIG_PATH}
 
 COPY ${CROSS_TRIPLE}.sh /usr/bin/${CROSS_TRIPLE}.sh
 RUN mkdir -p ${CROSS_ROOT} && \

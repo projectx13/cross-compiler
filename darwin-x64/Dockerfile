@@ -1,10 +1,10 @@
-FROM steeve/cross-compiler:base
-MAINTAINER Steeve Morin "steeve.morin@gmail.com"
+FROM cross-compiler:base
 
 ENV CROSS_TRIPLE x86_64-apple-darwin14
 ENV CROSS_ROOT /usr/${CROSS_TRIPLE}
 ENV PATH ${PATH}:${CROSS_ROOT}/bin
 ENV LD_LIBRARY_PATH /usr/lib/llvm-3.4/lib:${CROSS_ROOT}/lib
+ENV PKG_CONFIG_PATH ${CROSS_ROOT}/lib/pkgconfig:${PKG_CONFIG_PATH}
 ENV MAC_SDK_VERSION 10.10
 
 RUN echo "deb http://llvm.org/apt/wheezy/ llvm-toolchain-wheezy-3.4-binaries main" >> /etc/apt/sources.list && \
