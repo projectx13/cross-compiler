@@ -2,7 +2,7 @@ FROM cross-compiler:base
 
 RUN apt-get update && apt-get -y --force-yes install \
                         bash \
-                        curl \
+                        curl wget \
                         pkg-config \
                         build-essential \
                         file \
@@ -18,9 +18,10 @@ RUN mkdir -p /build && \
     cd /build && \
     curl -L http://dl.google.com/android/ndk/android-ndk32-r10b-linux-x86_64.tar.bz2 | tar xvj && \
     cd /build/android-ndk-r10b && \
-    /bin/bash ./build/tools/make-standalone-toolchain.sh --platform=android-14 --install-dir=${CROSS_ROOT} && \
+    /bin/bash ./build/tools/make-standalone-toolchain.sh --platform=android-19 --install-dir=${CROSS_ROOT} && \
     cd / && \
     rm -rf /build
 
 RUN cd ${CROSS_ROOT}/bin && \
     ln -s ${CROSS_TRIPLE}-gcc ${CROSS_TRIPLE}-cc
+    
