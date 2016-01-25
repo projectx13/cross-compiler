@@ -2,8 +2,14 @@ PLATFORMS = android-arm darwin-x64 linux-x86 linux-x64 linux-arm windows-x86 win
 DOCKER    = docker
 IMAGE     = cross-compiler
 
-all:
+base:
 	$(DOCKER) build -t $(IMAGE):base .
+
+build:
+	$(DOCKER) build -t $(IMAGE):$(PLATFORM) $(PLATFORM)
+
+all:
+	$(MAKE) base
 	for i in $(PLATFORMS); do \
-		$(DOCKER) build -t $(IMAGE):$$i $$i ; \
+		$(MAKE) build PLATFORM=$$i; \
 	done

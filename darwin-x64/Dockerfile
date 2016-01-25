@@ -3,16 +3,14 @@ FROM cross-compiler:base
 ENV CROSS_TRIPLE x86_64-apple-darwin14
 ENV CROSS_ROOT /usr/${CROSS_TRIPLE}
 ENV PATH ${PATH}:${CROSS_ROOT}/bin
-ENV LD_LIBRARY_PATH /usr/lib/llvm-3.4/lib:${CROSS_ROOT}/lib
+ENV LD_LIBRARY_PATH /usr/lib/llvm-3.7/lib:${CROSS_ROOT}/lib
 ENV PKG_CONFIG_PATH ${CROSS_ROOT}/lib/pkgconfig:${PKG_CONFIG_PATH}
 ENV MAC_SDK_VERSION 10.10
 
-RUN echo "deb http://llvm.org/apt/wheezy/ llvm-toolchain-wheezy-3.4-binaries main" >> /etc/apt/sources.list && \
+RUN echo "deb http://llvm.org/apt/jessie/ llvm-toolchain-jessie-3.7-binaries main" >> /etc/apt/sources.list && \
     curl http://llvm.org/apt/llvm-snapshot.gpg.key | apt-key add - && \
-    apt-get update
-
-RUN apt-get update && \
-    apt-get install -y --force-yes clang-3.4 llvm-3.4-dev automake autogen \
+    apt-get update && \
+    apt-get install -y --force-yes clang-3.7 llvm-3.7-dev automake autogen \
                                    libtool libxml2-dev uuid-dev libssl-dev bash \
                                    patch make tar xz-utils bzip2 gzip sed cpio
 
