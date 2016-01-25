@@ -7,7 +7,7 @@ ENV LD_LIBRARY_PATH /usr/lib/llvm-3.7/lib:${CROSS_ROOT}/lib
 ENV PKG_CONFIG_PATH ${CROSS_ROOT}/lib/pkgconfig:${PKG_CONFIG_PATH}
 ENV MAC_SDK_VERSION 10.10
 
-RUN echo "deb http://llvm.org/apt/jessie/ llvm-toolchain-jessie-3.7-binaries main" >> /etc/apt/sources.list && \
+RUN echo "deb http://llvm.org/apt/jessie/ llvm-toolchain-jessie-3.7 main" >> /etc/apt/sources.list && \
     curl http://llvm.org/apt/llvm-snapshot.gpg.key | apt-key add - && \
     apt-get update && \
     apt-get install -y --force-yes clang-3.7 llvm-3.7-dev automake autogen \
@@ -17,7 +17,10 @@ RUN echo "deb http://llvm.org/apt/jessie/ llvm-toolchain-jessie-3.7-binaries mai
 RUN curl -L https://github.com/tpoechtrager/osxcross/archive/master.tar.gz | tar xvz && \
     cd /osxcross-master/ && \
     curl -L -o tarballs/MacOSX${MAC_SDK_VERSION}.sdk.tar.xz https://www.dropbox.com/s/yfbesd249w10lpc/MacOSX${MAC_SDK_VERSION}.sdk.tar.xz && \
-    echo | SDK_VERSION=${MAC_SDK_VERSION} OSX_VERSION_MIN=10.6 ./build.sh && \
+    ln -s /usr/bin/clang-3.7 /usr/bin/clang && \
+    ln -s /usr/bin/clang++-3.7 /usr/bin/clang++ && \
+    echo | SDK_VERSION=${MAC_SDK_VERSION} OSX_VERSION_MIN=10.6 UNATTENDED=1 ./build.sh && \
     mv /osxcross-master/target ${CROSS_ROOT} && \
     mkdir -p ${CROSS_ROOT}/lib && \
+    cd / && \
     rm -rf /osxcross-master

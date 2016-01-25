@@ -5,11 +5,13 @@ IMAGE     = cross-compiler
 base:
 	$(DOCKER) build -t $(IMAGE):base .
 
-build:
-	$(DOCKER) build -t $(IMAGE):$(PLATFORM) $(PLATFORM)
+.PHONY: $(PLATFORMS)
+
+$(PLATFORMS):
+	$(DOCKER) build -t $(IMAGE):$@ $@;
 
 all:
 	$(MAKE) base
 	for i in $(PLATFORMS); do \
-		$(MAKE) build PLATFORM=$$i; \
+		$(MAKE) $$i; \
 	done
