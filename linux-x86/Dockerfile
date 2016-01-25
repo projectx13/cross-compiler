@@ -24,5 +24,5 @@ RUN mkdir -p ${CROSS_ROOT} && \
         ln -s ${i} ${CROSS_TRIPLE}-${i} ; \
     done && \
     for i in ranlib nm ar; do \
-        ln -s x86_64-linux-gnu-gcc-${i}-4.7 ${CROSS_TRIPLE}-${i} ; \
+        ln -s x86_64-linux-gnu-gcc-${i} ${CROSS_TRIPLE}-${i} ; \
     done
