@@ -25,7 +25,5 @@ $(PLATFORMS):
 	$(DOCKER) build -t $(IMAGE):$@ $@;
 
 push:
-	for i in $(PLATFORMS); do \
-	  docker tag cross-compiler:$$i quasarhq/cross-compiler:$$i; \
-	  docker push quasarhq/cross-compiler:$$i; \
-	done
+	docker tag cross-compiler:$PLATFORM quasarhq/cross-compiler:$PLATFORM
+	docker push quasarhq/cross-compiler:$PLATFORM

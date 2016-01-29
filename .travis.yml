@@ -3,15 +3,22 @@ sudo: required
 services:
   - docker
 
-script:
+env:
+  - PLATFORM=android-arm
+  - PLATFORM=android-x64
+  - PLATFORM=darwin-x64
+  - PLATFORM=linux-x86
+  - PLATFORM=linux-x64
+  - PLATFORM=linux-arm
+  - PLATFORM=windows-x86
+  - PLATFORM=windows-x64
+
+before_script:
   - make base
-  - make android-arm
-  - make android-x64
-  - make darwin-x64
-  - make linux-x86
-  - make linux-x64
-  - make linux-arm
-  - make windows-x86
-  - make windows-x64
+
+script:
+  - make $PLATFORM
+
+after_script:
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && make push || true'
