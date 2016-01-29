@@ -13,4 +13,5 @@ script:
   - make linux-arm
   - make windows-x86
   - make windows-x64
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && make push || false'
+  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && make push || true'
