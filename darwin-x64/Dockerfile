@@ -14,7 +14,7 @@ RUN echo "deb http://llvm.org/apt/jessie/ llvm-toolchain-jessie-3.7 main" >> /et
                                    libtool libxml2-dev uuid-dev libssl-dev bash \
                                    patch make tar xz-utils bzip2 gzip sed cpio
 
-RUN curl -L https://github.com/tpoechtrager/osxcross/archive/master.tar.gz | tar xvz && \
+RUN curl -L https://github.com/tpoechtrager/osxcross/archive/master.tar.gz | tar xz && \
     cd /osxcross-master/ && \
     curl -L -o tarballs/MacOSX${MAC_SDK_VERSION}.sdk.tar.xz https://www.dropbox.com/s/yfbesd249w10lpc/MacOSX${MAC_SDK_VERSION}.sdk.tar.xz && \
     ln -s /usr/bin/clang-3.7 /usr/bin/clang && \

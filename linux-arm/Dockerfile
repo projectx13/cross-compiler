@@ -19,7 +19,7 @@ RUN dpkg --add-architecture i386 && \
 # of performance.
 # See: https://wiki.debian.org/RaspberryPi
 # We are also using the 4.7 version of the toolchain, so that glibc=2.13
-RUN curl -L https://github.com/raspberrypi/tools/archive/${RASPBERRYPI_TOOLS_COMMIT}.tar.gz | tar xvz --wildcards --no-anchored "*gcc-linaro-${CROSS_TRIPLE}-raspbian*" && \
+RUN curl -L https://github.com/raspberrypi/tools/archive/${RASPBERRYPI_TOOLS_COMMIT}.tar.gz | tar xz --wildcards --no-anchored "*gcc-linaro-${CROSS_TRIPLE}-raspbian*" && \
     rsync -av /tools-${RASPBERRYPI_TOOLS_COMMIT}/arm-bcm2708/gcc-linaro-${CROSS_TRIPLE}-raspbian/* /usr && \
     cd /usr/bin && \
     ln -s ${CROSS_TRIPLE}-gcc ${CROSS_TRIPLE}-cc && \

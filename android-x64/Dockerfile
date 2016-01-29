@@ -11,7 +11,7 @@ RUN mkdir -p /build && \
     wget -nv http://dl.google.com/android/ndk/android-ndk-r10e-linux-x86_64.bin && \
     cd /build && \
     chmod +x android-ndk-r10e-linux-x86_64.bin && \
-    ./android-ndk-r10e-linux-x86_64.bin &>/dev/null && \
+    ./android-ndk-r10e-linux-x86_64.bin 1>log 2>err && \
     cd /build/android-ndk-r10e && \
     /bin/bash ./build/tools/make-standalone-toolchain.sh --toolchain=${CROSS_TRIPLE}-4.9 --platform=android-21 --install-dir=${CROSS_ROOT} && \
     cd / && \
