@@ -2,7 +2,6 @@ DOCKER    = docker
 IMAGE     = cross-compiler
 PLATFORMS = \
 	android-arm \
-	android-x86 \
 	android-x64 \
 	darwin-x64 \
 	linux-x86 \
@@ -11,16 +10,23 @@ PLATFORMS = \
 	windows-x86 \
 	windows-x64
 
-base:
-	$(DOCKER) build -t $(IMAGE):base .
-
 .PHONY: $(PLATFORMS)
-
-$(PLATFORMS):
-	$(DOCKER) build -t $(IMAGE):$@ $@;
 
 all:
 	$(MAKE) base
 	for i in $(PLATFORMS); do \
 		$(MAKE) $$i; \
+	done
+
+base:
+	$(DOCKER) build -t $(IMAGE):base .
+
+$(PLATFORMS):
+	$(DOCKER) build -t $(IMAGE):$@ $@;
+
+push:
+	docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+	for i in $(PLATFORMS); do \
+	  docker tag cross-compiler:$$i quasarhq/cross-compiler:$$i; \
+	  docker push quasarhq/cross-compiler:$$i; \
 	done

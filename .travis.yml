@@ -4,7 +4,13 @@ services:
   - docker
 
 script:
-  - make all
-  # - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  # - docker tag cross-compiler quasarhq/cross-compiler
-  # - docker push quasarhq/cross-compiler
+  - make base
+  - make android-arm
+  - make android-x64
+  - make darwin-x64
+  - make linux-x86
+  - make linux-x64
+  - make linux-arm
+  - make windows-x86
+  - make windows-x64
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && make push || false'

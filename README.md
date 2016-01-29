@@ -1,4 +1,4 @@
-cross-compilers
+cross-compilers [![Build Status](https://travis-ci.org/scakemyer/cross-compiler.svg?branch=master)](https://travis-ci.org/scakemyer/cross-compiler)
 ===============
 
 Dockerfiles for cross compiling environments
@@ -17,7 +17,7 @@ All the compilers run as docker linux containers in a linux x86_64 system/host m
 
 Either build all images with:
 
-    make all
+    make
 
 Or selectively by building the base image first, then the platform of your choice:
 
