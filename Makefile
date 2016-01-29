@@ -25,5 +25,5 @@ $(PLATFORMS):
 	$(DOCKER) build -t $(IMAGE):$@ $@;
 
 push:
-	docker tag cross-compiler:$PLATFORM quasarhq/cross-compiler:$PLATFORM
-	docker push quasarhq/cross-compiler:$PLATFORM
+	docker tag cross-compiler:$(PLATFORM) quasarhq/cross-compiler:$(PLATFORM)
+	docker push quasarhq/cross-compiler:$(PLATFORM)
