@@ -25,7 +25,7 @@ $(PLATFORMS):
 	$(DOCKER) build -t $(IMAGE):$@ $@;
 
 push:
-	docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+	docker login -e="${DOCKER_EMAIL}" -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
 	for i in $(PLATFORMS); do \
 	  docker tag cross-compiler:$$i quasarhq/cross-compiler:$$i; \
 	  docker push quasarhq/cross-compiler:$$i; \
