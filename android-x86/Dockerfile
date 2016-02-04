@@ -13,7 +13,7 @@ RUN mkdir -p /build && \
     chmod +x android-ndk-r10e-linux-x86_64.bin && \
     ./android-ndk-r10e-linux-x86_64.bin 1>log 2>err && \
     cd /build/android-ndk-r10e && \
-    /bin/bash ./build/tools/make-standalone-toolchain.sh --toolchain=x86-4.9 --platform=android-19 --install-dir=${CROSS_ROOT} && \
+    /bin/bash ./build/tools/make-standalone-toolchain.sh --toolchain=x86-4.9 --platform=android-21 --install-dir=${CROSS_ROOT} && \
     cd / && \
     rm -rf /build
 
