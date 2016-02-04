@@ -1,6 +1,6 @@
 FROM cross-compiler:base
 
-ENV CROSS_TRIPLE x86-linux-android
+ENV CROSS_TRIPLE i686-linux-android
 ENV CROSS_ROOT /usr/${CROSS_TRIPLE}
 ENV PATH ${PATH}:${CROSS_ROOT}/bin
 ENV LD_LIBRARY_PATH ${CROSS_ROOT}/lib:${LD_LIBRARY_PATH}
@@ -13,7 +13,7 @@ RUN mkdir -p /build && \
     chmod +x android-ndk-r10e-linux-x86_64.bin && \
     ./android-ndk-r10e-linux-x86_64.bin 1>log 2>err && \
     cd /build/android-ndk-r10e && \
-    /bin/bash ./build/tools/make-standalone-toolchain.sh --toolchain=${CROSS_TRIPLE}-4.9 --platform=android-21 --install-dir=${CROSS_ROOT} && \
+    /bin/bash ./build/tools/make-standalone-toolchain.sh --toolchain=x86-4.9 --platform=android-19 --install-dir=${CROSS_ROOT} && \
     cd / && \
     rm -rf /build
 
