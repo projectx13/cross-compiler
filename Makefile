@@ -13,6 +13,7 @@ PLATFORMS = \
 	darwin-x64 \
 	linux-arm \
 	linux-armv7 \
+	linux-arm64 \
 	linux-x64 \
 	linux-x86 \
 	windows-x64 \
