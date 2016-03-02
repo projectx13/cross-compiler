@@ -1,37 +1,66 @@
-cross-compilers [![Build Status](https://travis-ci.org/scakemyer/cross-compiler.svg?branch=master)](https://travis-ci.org/scakemyer/cross-compiler)
-===============
+cross-compiler [![Build Status](https://travis-ci.org/scakemyer/cross-compiler.svg?branch=master)](https://travis-ci.org/scakemyer/cross-compiler)
+==============
 
-Dockerfiles for cross compiling environments
+C/C++ Cross compiling environment containers
 
-### Overview
-All the compilers run as docker linux containers in a linux x86_64 system/host machine. This eliminates the need for a hypervisor and the installation of any packages (plus aditional configuration) on the host machine appart from docker itself.
+This has been designed to run `libtorrent-go` cross compilation and is not meant to be perfect nor minimal. Adapt as required.
 
-#### Requirements
-* Linux x86_64 host (or virtual machine). For windows and OSX you may want to consider boot2docker (http://boot2docker.io/). Boot2docker is a minimal linux virtual machine based on tinycore linux (http://distro.ibiblio.org/tinycorelinux/). This minimal virtual linux system runs completely from RAM, weights ~27MB and boots in ~5s
+## Overview
 
-* Docker installed on the host machine
+### Environment variables
 
-* Docker service/socket running on the host machine. For Ubuntu derivatives: sudo service docker start | For Linux Arch based systems: sudo systemctl docker start | Boot2docker enables the service after the machine is started
+- CROSS_TRIPLE
+- CROSS_ROOT
+- LD_LIBRARY_PATH
+- PKG_CONFIG_PATH
 
-#### Building
+Also adds CROSS_ROOT/bin in to PATH.
+
+### Installed packages
+
+Based on Debian Jessie:
+- bash
+- curl
+- wget
+- pkg-config
+- build-essential
+- make
+- automake
+- autogen
+- libtool
+- libpcre3-dev
+- bison
+- yodl
+- tar
+- xz-utils
+- bzip2
+- gzip
+- file
+- rsync
+- sed
+- upx
+
+And a selection of platform specific packages (see below).
+
+### Platforms built
+
+- android-arm (android-ndk with android-19, toolchain 4.9)
+- android-x64 (android-ndk with android-21, toolchain 4.9)
+- android-x86 (android-ndk with android-21, toolchain 4.9)
+- darwin-x64 (clang-3.7, llvm-3.7-dev, libtool, libxml2-dev, uuid-dev, libssl-dev patch make cpio)
+- linux-arm (gcc-4.7-arm-linux-gnueabihf with hardfp support for RaspberryPi)
+- linux-armv7 (gcc-4.9-arm-linux-gnueabihf)
+- linux-x64
+- linux-x86 (gcc-multilib, g++-multilib)
+- windows-x64 (mingw-w64)
+- windows-x86 (mingw-w64)
+
+## Building
 
 Either build all images with:
 
     make
 
-Or selectively by building the base image first, then the platform of your choice:
+Or selectively build platforms:
 
-    make base
-    make android-arm
-
-#### Useful docker commands
-
-* To completely purge the cache and remove any built docker containers and images:
-
-```bash
-#!/bin/bash
-# Delete all containers
-docker rm $(docker ps -a -q)
-# Delete all images
-docker rmi $(docker images -q)
-```
+    make darwin-x64

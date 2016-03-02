@@ -1,11 +1,18 @@
-DOCKER    = docker
-IMAGE     = cross-compiler
+# Name of the project.
+PROJECT = quasarhq
+IMAGE = cross-compiler
+
+# Set binaries and platform specific variables.
+DOCKER = docker
+
+# Platforms on which we want to build the project.
 PLATFORMS = \
 	android-arm \
 	android-x64 \
 	android-x86 \
 	darwin-x64 \
 	linux-arm \
+	linux-armv7 \
 	linux-x64 \
 	linux-x86 \
 	windows-x64 \
@@ -14,7 +21,6 @@ PLATFORMS = \
 .PHONY: $(PLATFORMS)
 
 all:
-	$(MAKE) base
 	for i in $(PLATFORMS); do \
 		$(MAKE) $$i; \
 	done
@@ -22,9 +28,9 @@ all:
 base:
 	$(DOCKER) build -t $(IMAGE):base .
 
-$(PLATFORMS):
+$(PLATFORMS): base
 	$(DOCKER) build -t $(IMAGE):$@ $@;
 
 push:
-	docker tag cross-compiler:$(PLATFORM) quasarhq/cross-compiler:$(PLATFORM)
-	docker push quasarhq/cross-compiler:$(PLATFORM)
+	docker tag cross-compiler:$(PLATFORM) $(PROJECT)/cross-compiler:$(PLATFORM)
+	docker push $(PROJECT)/cross-compiler:$(PLATFORM)
