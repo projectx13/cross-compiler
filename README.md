@@ -50,6 +50,7 @@ And a selection of platform specific packages (see below).
 - darwin-x64 (clang-3.7, llvm-3.7-dev, libtool, libxml2-dev, uuid-dev, libssl-dev patch make cpio)
 - linux-arm (gcc-4.7-arm-linux-gnueabihf with hardfp support for RaspberryPi)
 - linux-armv7 (gcc-4.9-arm-linux-gnueabihf)
+- linux-arm64 (aarch64-linux-gnu)
 - linux-x64
 - linux-x86 (gcc-multilib, g++-multilib)
 - windows-x64 (mingw-w64)
