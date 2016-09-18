@@ -14,7 +14,7 @@ This has been designed to run `libtorrent-go` cross compilation and is not meant
 - LD_LIBRARY_PATH
 - PKG_CONFIG_PATH
 
-Also adds CROSS_ROOT/bin in to PATH.
+Also adds CROSS_ROOT/bin in your PATH.
 
 ### Installed packages
 
