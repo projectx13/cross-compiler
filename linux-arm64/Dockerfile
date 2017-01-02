@@ -5,10 +5,7 @@ RUN echo "deb http://emdebian.org/tools/debian/ jessie main" >> /etc/apt/sources
     dpkg --add-architecture arm64 && \
     curl -L http://emdebian.org/tools/debian/emdebian-toolchain-archive.key | apt-key add -
 
-RUN apt-get update && apt-get -y install \
-    gcc-4.9-aarch64-linux-gnu \
-    g++-4.9-aarch64-linux-gnu \
-    crossbuild-essential-arm64
+RUN apt-get update && apt-get -y install crossbuild-essential-arm64
 
 ENV CROSS_TRIPLE aarch64-linux-gnu
 ENV CROSS_ROOT /usr/${CROSS_TRIPLE}

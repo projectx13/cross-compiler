@@ -5,10 +5,7 @@ RUN echo "deb http://emdebian.org/tools/debian/ jessie main" >> /etc/apt/sources
     dpkg --add-architecture armhf && \
     curl -L http://emdebian.org/tools/debian/emdebian-toolchain-archive.key | apt-key add -
 
-RUN apt-get update && apt-get -y install \
-    gcc-4.9-arm-linux-gnueabihf \
-    g++-4.9-arm-linux-gnueabihf \
-    crossbuild-essential-armhf
+RUN apt-get update && apt-get -y install crossbuild-essential-armhf
 
 ENV CROSS_TRIPLE armv7-linux-gnueabihf
 ENV CROSS_ROOT /usr/${CROSS_TRIPLE}

@@ -1,11 +1,11 @@
 FROM cross-compiler:base
 
-ENV CROSS_TRIPLE x86_64-apple-darwin14
+ENV CROSS_TRIPLE x86_64-apple-darwin15
 ENV CROSS_ROOT /usr/${CROSS_TRIPLE}
 ENV PATH ${PATH}:${CROSS_ROOT}/bin
 ENV LD_LIBRARY_PATH /usr/lib/llvm-3.7/lib:${CROSS_ROOT}/lib
 ENV PKG_CONFIG_PATH ${CROSS_ROOT}/lib/pkgconfig:${PKG_CONFIG_PATH}
-ENV MAC_SDK_VERSION 10.10
+ENV MAC_SDK_VERSION 10.11
 
 RUN echo "deb http://apt.llvm.org/jessie/ llvm-toolchain-jessie-3.7 main" >> /etc/apt/sources.list && \
     curl http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
@@ -16,10 +16,10 @@ RUN echo "deb http://apt.llvm.org/jessie/ llvm-toolchain-jessie-3.7 main" >> /et
 
 RUN curl -L https://github.com/tpoechtrager/osxcross/archive/master.tar.gz | tar xz && \
     cd /osxcross-master/ && \
-    curl -L -o tarballs/MacOSX${MAC_SDK_VERSION}.sdk.tar.xz https://www.dropbox.com/s/yfbesd249w10lpc/MacOSX${MAC_SDK_VERSION}.sdk.tar.xz && \
+    curl -L -o tarballs/MacOSX${MAC_SDK_VERSION}.sdk.tar.xz https://github.com/phracker/MacOSX-SDKs/releases/download/MacOSX10.11.sdk/MacOSX${MAC_SDK_VERSION}.sdk.tar.xz && \
     ln -s /usr/bin/clang-3.7 /usr/bin/clang && \
     ln -s /usr/bin/clang++-3.7 /usr/bin/clang++ && \
-    echo | SDK_VERSION=${MAC_SDK_VERSION} OSX_VERSION_MIN=10.6 UNATTENDED=1 ./build.sh && \
+    echo | SDK_VERSION=${MAC_SDK_VERSION} OSX_VERSION_MIN=10.7 UNATTENDED=1 ./build.sh && \
     mv /osxcross-master/target ${CROSS_ROOT} && \
     mkdir -p ${CROSS_ROOT}/lib && \
     cd / && \
