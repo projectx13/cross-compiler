@@ -2,7 +2,8 @@ FROM cross-compiler:base
 
 RUN apt-get update && apt-get -y install \
     gcc-multilib \
-    g++-multilib
+    g++-multilib \
+    libc6-dev-i386
 
 ENV CROSS_TRIPLE i686-linux-gnu
 ENV CROSS_ROOT /usr/i686-linux-gnu

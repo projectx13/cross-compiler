@@ -1,6 +1,6 @@
 FROM cross-compiler:base
 
-RUN apt-get update && apt-get -y install mingw-w64
+RUN apt-get update && apt-get -y install mingw-w64 libc6-dev-i386
 
 ENV CROSS_TRIPLE i686-w64-mingw32
 ENV CROSS_ROOT /usr/${CROSS_TRIPLE}
