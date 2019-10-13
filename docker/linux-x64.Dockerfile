@@ -1,7 +1,5 @@
 FROM cross-compiler:base
 
-RUN apt-get update && apt-get -y install libc6-dev
-
 ENV CROSS_TRIPLE x86_64-linux-gnu
 ENV CROSS_ROOT /usr/${CROSS_TRIPLE}
 ENV PATH ${PATH}:${CROSS_ROOT}/bin

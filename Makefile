@@ -11,15 +11,15 @@ PLATFORMS = \
 	android-arm64 \
 	android-x64 \
 	android-x86 \
+	darwin-x64 \
+	darwin-x86 \
 	linux-armv6 \
 	linux-armv7 \
 	linux-arm64 \
 	linux-x64 \
 	linux-x86 \
 	windows-x64 \
-	windows-x86 \
-	darwin-x64 \
-	darwin-x86
+	windows-x86
 
 .PHONY: $(PLATFORMS)
 
@@ -32,16 +32,7 @@ base:
 	$(DOCKER) build -t $(IMAGE):base .
 
 $(PLATFORMS): base
-	$(DOCKER) build -t $(IMAGE):$@ $@;
-
-pull:
-	docker pull $(PROJECT)/cross-compiler:$(PLATFORM)
-	docker tag $(PROJECT)/cross-compiler:$(PLATFORM) cross-compiler:$(PLATFORM)
-
-pull-all:
-	for i in $(PLATFORMS); do \
-		PLATFORM=$$i $(MAKE) pull; \
-	done
+	$(DOCKER) build -t $(IMAGE):$@ -f docker/$@.Dockerfile docker
 
 push:
 	docker tag cross-compiler:$(PLATFORM) $(PROJECT)/cross-compiler:$(PLATFORM)
@@ -50,4 +41,13 @@ push:
 push-all:
 	for i in $(PLATFORMS); do \
 		PLATFORM=$$i $(MAKE) push; \
+	done
+
+pull:
+	docker pull $(PROJECT)/cross-compiler:$(PLATFORM)
+	docker tag $(PROJECT)/cross-compiler:$(PLATFORM) cross-compiler:$(PLATFORM)
+
+pull-all:
+	for i in $(PLATFORMS); do \
+		PLATFORM=$$i $(MAKE) pull; \
 	done
