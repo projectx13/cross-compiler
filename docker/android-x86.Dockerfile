@@ -8,7 +8,7 @@ ENV PKG_CONFIG_PATH ${CROSS_ROOT}/lib/pkgconfig:${PKG_CONFIG_PATH}
 
 RUN apt-get update && apt-get install -y python
 
-ENV NDK android-ndk-r20
+ENV NDK android-ndk-r18b
 
 RUN set -ex && \
     mkdir -p /build && \
@@ -16,7 +16,7 @@ RUN set -ex && \
     wget -nv https://dl.google.com/android/repository/${NDK}-linux-x86_64.zip && \
     unzip ${NDK}-linux-x86_64.zip 1>log 2>err && \
     cd ${NDK} && \
-    ./build/tools/make_standalone_toolchain.py --arch=x86 --api=21 --install-dir=${CROSS_ROOT} && \
+    ./build/tools/make_standalone_toolchain.py --arch=x86 --api=19 --install-dir=${CROSS_ROOT} && \
     cd / && rm -rf /build
 
 RUN cd ${CROSS_ROOT}/bin && \
