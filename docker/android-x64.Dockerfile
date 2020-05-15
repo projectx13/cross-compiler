@@ -8,7 +8,7 @@ ENV PKG_CONFIG_PATH ${CROSS_ROOT}/lib/pkgconfig:${PKG_CONFIG_PATH}
 
 RUN apt-get update && apt-get install -y python
 
-ENV NDK android-ndk-r18b
+ENV NDK android-ndk-r20b
 
 RUN set -ex && \
     mkdir -p /build && \
